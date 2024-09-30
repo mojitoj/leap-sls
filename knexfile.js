@@ -15,7 +15,7 @@ module.exports = {
   },
   production: {
     client: "postgresql",
-    connection: `${process.env.PG_CONNECTION_STRING}/leap_sls`,
+    connection: `${process.env.PG_CONNECTION_STRING}`,
     pool: {
       min: 1,
       max: 1
