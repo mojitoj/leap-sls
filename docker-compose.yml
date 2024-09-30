@@ -1,0 +1,16 @@
+version: '3.2'
+services:
+  db:
+    image: "postgres:latest"
+    ports:
+      - "5432:5432"
+    environment:
+      - "POSTGRES_USER=leap-sls"
+      - "POSTGRES_PASSWORD=postgres"
+  db-test:
+    image: "postgres:latest"
+    ports:
+      - "5433:5432"
+    environment:
+      - "POSTGRES_USER=leap-sls-test"
+      - "POSTGRES_PASSWORD=postgres"
