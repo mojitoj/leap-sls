@@ -1,5 +1,6 @@
-const { knex } = require("../../lib/db/db");
+const { db } = require("../../lib/db/db");
+const { sql } = require("drizzle-orm");
 
 it("database is connected", async () => {
-  const response = await knex.raw("select 1;", []);
+  await db.execute(sql`select 1`);
 });
