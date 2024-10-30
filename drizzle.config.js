@@ -7,8 +7,6 @@ module.exports = {
   dialect: "postgresql",
   schema: "./db-schema/*.js",
   out: "./drizzle",
-  schemaFilter: "public",
-  tablesFilter: "*",
   dbCredentials: {
     url: process.env.DATABASE_URL
   },
