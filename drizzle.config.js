@@ -1,11 +1,14 @@
 require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV || "development"}` // Load .env.development by default
+  path: `.env.${process.env.NODE_ENV || "development"}`,
+  override: true
 });
 
 module.exports = {
   dialect: "postgresql",
   schema: "./db-schema/*.js",
   out: "./drizzle",
+  schemaFilter: "public",
+  tablesFilter: "*",
   dbCredentials: {
     url: process.env.DATABASE_URL
   },
