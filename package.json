@@ -24,9 +24,8 @@
     "db:test:push": "NODE_ENV=test npx drizzle-kit push",
     "db:dev:migrate": "NODE_ENV=dev npx drizzle-kit migrate",
     "db:test:migrate": "NODE_ENV=test npx drizzle-kit migrate",
-    "db:dev:setup": "NODE_ENV=dev npm run db:local:start && npm run db:generate && npm run db:dev:push",
-    "db:test:setup": "NODE_ENV=test npm run db:generate && npm run db:test:push",
-    "db:local:setup": "npm run db:dev:setup && npm run db:test:setup",
+    "db:dev:setup": "NODE_ENV=dev npm run db:generate && npm run db:dev:push && npm run db:dev:migrate",
+    "db:test:setup": "NODE_ENV=test npm run db:generate && npm run db:test:push && npm run db:test:migrate",
     "db:prod:migrate": "NODE_ENV=prod npx drizzle-kit migrate",
     "db:prod:push": "NODE_ENV=prod npx drizzle-kit push",
     "db:local:stop": "docker-compose down"
