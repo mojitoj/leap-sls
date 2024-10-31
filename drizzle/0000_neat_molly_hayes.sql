@@ -5,9 +5,22 @@ CREATE TABLE IF NOT EXISTS "code_group_mappings" (
 	"metadata_id" integer
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "code_system_aliases" (
+	"system_id" integer NOT NULL,
+	"alias" varchar(512) NOT NULL,
+	CONSTRAINT "code_system_aliases_system_id_alias_pk" PRIMARY KEY("system_id","alias"),
+	CONSTRAINT "code_system_aliases_alias_unique" UNIQUE("alias")
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "code_systems" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"display_name" varchar(64) NOT NULL,
+	CONSTRAINT "code_systems_display_name_unique" UNIQUE("display_name")
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "codes" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"system" varchar(255) NOT NULL,
+	"system_id" integer NOT NULL,
 	"code" varchar(255) NOT NULL,
 	"display" text,
 	"type" varchar(255) NOT NULL
@@ -40,4 +53,16 @@ EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
-CREATE UNIQUE INDEX IF NOT EXISTS "system_code_unique_idx" ON "codes" USING btree ("system","code");
+DO $$ BEGIN
+ ALTER TABLE "code_system_aliases" ADD CONSTRAINT "code_system_aliases_system_id_code_systems_id_fk" FOREIGN KEY ("system_id") REFERENCES "public"."code_systems"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "codes" ADD CONSTRAINT "codes_system_id_code_systems_id_fk" FOREIGN KEY ("system_id") REFERENCES "public"."code_systems"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+CREATE UNIQUE INDEX IF NOT EXISTS "system_code_unique_idx" ON "codes" USING btree ("system_id","code");

@@ -1,6 +1,6 @@
 {
-  "id": "8b9b530e-8cc9-486f-ad16-c87a53b9ff9d",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "cbf0c533-8f85-4aa2-a7ac-4e70234b1231",
+  "prevId": "8b9b530e-8cc9-486f-ad16-c87a53b9ff9d",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -38,41 +38,41 @@
         "code_group_mappings_code_id_codes_id_fk": {
           "name": "code_group_mappings_code_id_codes_id_fk",
           "tableFrom": "code_group_mappings",
-          "tableTo": "codes",
           "columnsFrom": [
             "code_id"
           ],
+          "tableTo": "codes",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "code_group_mappings_group_id_codes_id_fk": {
           "name": "code_group_mappings_group_id_codes_id_fk",
           "tableFrom": "code_group_mappings",
-          "tableTo": "codes",
           "columnsFrom": [
             "group_id"
           ],
+          "tableTo": "codes",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "code_group_mappings_metadata_id_metadata_id_fk": {
           "name": "code_group_mappings_metadata_id_metadata_id_fk",
           "tableFrom": "code_group_mappings",
-          "tableTo": "metadata",
           "columnsFrom": [
             "metadata_id"
           ],
+          "tableTo": "metadata",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -100,15 +100,15 @@
         "code_system_aliases_system_id_code_systems_id_fk": {
           "name": "code_system_aliases_system_id_code_systems_id_fk",
           "tableFrom": "code_system_aliases",
-          "tableTo": "code_systems",
           "columnsFrom": [
             "system_id"
           ],
+          "tableTo": "code_systems",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {
@@ -123,10 +123,10 @@
       "uniqueConstraints": {
         "code_system_aliases_alias_unique": {
           "name": "code_system_aliases_alias_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "alias"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
@@ -153,10 +153,10 @@
       "uniqueConstraints": {
         "code_systems_display_name_unique": {
           "name": "code_systems_display_name_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "display_name"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
@@ -213,24 +213,24 @@
             }
           ],
           "isUnique": true,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "codes_system_id_code_systems_id_fk": {
           "name": "codes_system_id_code_systems_id_fk",
           "tableFrom": "codes",
-          "tableTo": "code_systems",
           "columnsFrom": [
             "system_id"
           ],
+          "tableTo": "code_systems",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},

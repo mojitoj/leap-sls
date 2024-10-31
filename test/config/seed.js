@@ -7,61 +7,61 @@ const seedData = async () => {
     // Start a transaction
     await db.transaction(async (tx) => {
       // Insert data into codes table
-      const codeIds = await tx
+      await tx
         .insert(codes)
         .values([
           {
             id: 1,
-            system: "http://snomed.info/sct",
+            system_id: 2,
             code: "724713006",
             display: "Harmful use of ketamine (disorder)",
             type: "code"
           },
           {
             id: 2,
-            system: "http://hl7.org/fhir/sid/icd-10",
+            system_id: 3,
             code: "F19.1",
             display: "Other psychoactive substance abuse",
             type: "code"
           },
           {
             id: 3,
-            system: "http://snomed.info/sct",
+            system_id: 2,
             code: "145121000119106",
             display: "Intravenous nondependent opioid abuse (disorder)",
             type: "code"
           },
           {
             id: 4,
-            system: "http://hl7.org/fhir/sid/icd-10",
+            system_id: 3,
             code: "F11.1",
             display: "Opioid abuse",
             type: "code"
           },
           {
             id: 5,
-            system: "group",
+            system_id: 1,
             code: "ketamine",
             display: "ketamine substance use",
             type: "group"
           },
           {
             id: 6,
-            system: "group",
+            system_id: 1,
             code: "opiod",
             display: "opiod substance use",
             type: "group"
           },
           {
             id: 7,
-            system: "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+            system_id: 5,
             code: "SUD",
             display: "substance use disorder information sensitivity",
             type: "sensitivity"
           },
           {
             id: 8,
-            system: "http://terminology.hl7.org/CodeSystem/v3-Confidentiality",
+            system_id: 6,
             code: "R",
             display: "restricted",
             type: "confidentiality"
@@ -70,7 +70,7 @@ const seedData = async () => {
         .onConflictDoNothing();
 
       // Insert data into metadata table
-      const metadataIds = await tx.insert(metadata).values([
+      await tx.insert(metadata).values([
         {
           id: 1,
           type: "why",
