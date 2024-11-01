@@ -1,6 +1,16 @@
 const { db, pool } = require("../../lib/db/db");
-const { codes, metadata, code_group_mappings } = require("../../db-schema");
+const { codes, rules, rule_metadata } = require("../../db-schema");
 const { sql } = require("drizzle-orm");
+
+const HL7_SUD_CODE_ID = 1;
+const HL7_R_CODE_ID = 4;
+
+const KETAMINE_CODE_ID = 101;
+const HALL_CODE_ID = 102;
+const OPIOID_IV_CODE_ID = 103;
+const OPIOID_CODE_ID = 104;
+const HALL_GROUP_ID = 105;
+const OPIOID_GROUP_ID = 106;
 
 const seedData = async () => {
   try {
@@ -11,95 +21,66 @@ const seedData = async () => {
         .insert(codes)
         .values([
           {
-            id: 1,
+            id: KETAMINE_CODE_ID,
             system_id: 2,
             code: "724713006",
             display: "Harmful use of ketamine (disorder)",
             type: "code"
           },
           {
-            id: 2,
+            id: HALL_CODE_ID,
             system_id: 3,
-            code: "F19.1",
-            display: "Other psychoactive substance abuse",
+            code: "F16.20",
+            display: "Hallucinogen dependence, uncomplicated",
             type: "code"
           },
           {
-            id: 3,
+            id: OPIOID_IV_CODE_ID,
             system_id: 2,
             code: "145121000119106",
             display: "Intravenous nondependent opioid abuse (disorder)",
             type: "code"
           },
           {
-            id: 4,
+            id: OPIOID_CODE_ID,
             system_id: 3,
             code: "F11.1",
             display: "Opioid abuse",
             type: "code"
           },
           {
-            id: 5,
+            id: HALL_GROUP_ID,
             system_id: 1,
-            code: "ketamine",
-            display: "ketamine substance use",
+            code: "hallucinogen",
+            display: "hallucinogen substance use",
             type: "group"
           },
           {
-            id: 6,
+            id: OPIOID_GROUP_ID,
             system_id: 1,
             code: "opiod",
             display: "opiod substance use",
             type: "group"
-          },
-          {
-            id: 7,
-            system_id: 5,
-            code: "SUD",
-            display: "substance use disorder information sensitivity",
-            type: "sensitivity"
-          },
-          {
-            id: 8,
-            system_id: 6,
-            code: "R",
-            display: "restricted",
-            type: "confidentiality"
           }
         ])
         .onConflictDoNothing();
 
-      // Insert data into metadata table
-      await tx.insert(metadata).values([
-        {
-          id: 1,
-          type: "why",
-          uri: null,
-          system: "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-          code: "42CFRPart2",
-          display: "42 CFR Part2"
-        },
-        {
-          id: 2,
-          type: "who",
-          uri: null,
-          system: null,
-          code: null,
-          display: "XYZ Security Labeling Service v1.0.2"
-        }
-      ]).onConflictDoNothing();
-
-
       // Insert data into code_group_mappings table
-      await tx.insert(code_group_mappings).values([
-        { code_id: 5, group_id: 7, metadata_id: 1 },
-        { code_id: 6, group_id: 7, metadata_id: 1 },
-        { code_id: 7, group_id: 8, metadata_id: 1 },
-        { code_id: 1, group_id: 5, metadata_id: null },
-        { code_id: 2, group_id: 5, metadata_id: null },
-        { code_id: 3, group_id: 6, metadata_id: null },
-        { code_id: 4, group_id: 6, metadata_id: null }
+      await tx.insert(rules).values([
+        { id: 101, code_id: KETAMINE_CODE_ID, group_id: HALL_GROUP_ID },
+        { id: 102, code_id: HALL_CODE_ID, group_id: HALL_GROUP_ID },
+        { id: 103, code_id: OPIOID_CODE_ID, group_id: OPIOID_GROUP_ID },
+        { id: 104, code_id: OPIOID_IV_CODE_ID, group_id: OPIOID_GROUP_ID },
+        { id: 105, code_id: OPIOID_GROUP_ID, group_id: HL7_SUD_CODE_ID },
+        { id: 106, code_id: HALL_GROUP_ID, group_id: HL7_SUD_CODE_ID },
+        { id: 107, code_id: HL7_SUD_CODE_ID, group_id: HL7_R_CODE_ID }
       ]);
+
+      await tx.insert(rule_metadata).values([
+        { rule_id: 107, metadata_id: 1},
+        { rule_id: 107, metadata_id: 2}
+      ]);
+
     });
 
     console.log("Database seeded successfully!");
@@ -109,7 +90,21 @@ const seedData = async () => {
 };
 
 const tearDownDB = async () => {
-  await db.execute(sql`TRUNCATE code_group_mappings, metadata, codes;`);
+  await db.execute(
+    sql`TRUNCATE rule_metadata;`
+  );
+  await db.execute(
+    sql`DELETE FROM rules WHERE id IN (101, 102, 103, 104, 105, 106, 107);`
+  );
+  await db.execute(
+    sql`DELETE FROM codes WHERE id IN 
+    (${KETAMINE_CODE_ID}, 
+    ${HALL_CODE_ID}, 
+    ${OPIOID_IV_CODE_ID}, 
+    ${OPIOID_CODE_ID}, 
+    ${OPIOID_GROUP_ID}, 
+    ${HALL_GROUP_ID});`
+  );
   await pool.end();
 };
 
