@@ -1,5 +1,5 @@
 {
-  "id": "b531af3d-db3b-4523-aeeb-ca5506cea038",
+  "id": "b1d45e34-74ae-4122-b598-d22210319bf4",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -364,9 +364,15 @@
           "type": "varchar(512)",
           "primaryKey": false,
           "notNull": true
+        },
+        "display": {
+          "name": "display",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         }
       },
-      "definition": "select \"codes\".\"id\", \"codes\".\"code\", \"code_system_aliases\".\"alias\" from \"codes\" inner join \"code_systems\" on \"codes\".\"system_id\" = \"code_systems\".\"id\" inner join \"code_system_aliases\" on \"code_system_aliases\".\"system_id\" = \"code_systems\".\"id\" where \"codes\".\"type\" = 'code'",
+      "definition": "select \"codes\".\"id\", \"codes\".\"code\", \"code_system_aliases\".\"alias\", \"codes\".\"display\" from \"codes\" inner join \"code_systems\" on \"codes\".\"system_id\" = \"code_systems\".\"id\" inner join \"code_system_aliases\" on \"code_system_aliases\".\"system_id\" = \"code_systems\".\"id\"",
       "name": "full_codes",
       "schema": "public",
       "isExisting": false,

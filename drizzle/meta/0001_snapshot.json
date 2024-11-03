@@ -1,6 +1,6 @@
 {
-  "id": "59913017-d1f2-4b8c-9df2-c7d8501c3b17",
-  "prevId": "b531af3d-db3b-4523-aeeb-ca5506cea038",
+  "id": "74a220b3-a2f2-4d19-80a2-b0669d0a02fb",
+  "prevId": "b1d45e34-74ae-4122-b598-d22210319bf4",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -363,9 +363,15 @@
           "type": "varchar(512)",
           "primaryKey": false,
           "notNull": true
+        },
+        "display": {
+          "name": "display",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         }
       },
-      "definition": "select \"codes\".\"id\", \"codes\".\"code\", \"code_system_aliases\".\"alias\" from \"codes\" inner join \"code_systems\" on \"codes\".\"system_id\" = \"code_systems\".\"id\" inner join \"code_system_aliases\" on \"code_system_aliases\".\"system_id\" = \"code_systems\".\"id\" where \"codes\".\"type\" = 'code'",
+      "definition": "select \"codes\".\"id\", \"codes\".\"code\", \"code_system_aliases\".\"alias\", \"codes\".\"display\" from \"codes\" inner join \"code_systems\" on \"codes\".\"system_id\" = \"code_systems\".\"id\" inner join \"code_system_aliases\" on \"code_system_aliases\".\"system_id\" = \"code_systems\".\"id\"",
       "materialized": false,
       "isExisting": false
     }

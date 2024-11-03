@@ -5,29 +5,15 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1730508993299,
+      "when": 1730671956857,
       "tag": "0000_init",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "7",
-      "when": 1730509664888,
+      "when": 1730671973389,
       "tag": "0001_initial-seeds",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1730671207692,
-      "tag": "0002_peaceful_valkyrie",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1730671493705,
-      "tag": "0003_lowly_deadpool",
       "breakpoints": true
     }
   ]
