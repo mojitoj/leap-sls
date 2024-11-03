@@ -15,6 +15,20 @@
       "when": 1730509664888,
       "tag": "0001_initial-seeds",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1730671207692,
+      "tag": "0002_peaceful_valkyrie",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1730671493705,
+      "tag": "0003_lowly_deadpool",
+      "breakpoints": true
     }
   ]
 }

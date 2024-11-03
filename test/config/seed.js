@@ -1,5 +1,5 @@
 const { db, pool } = require("../../lib/db/db");
-const { codes, rules, rule_metadata } = require("../../db-schema");
+const { codes, rules, rule_metadata, code_system_aliases } = require("../../db-schema");
 const { sql } = require("drizzle-orm");
 
 const HL7_SUD_CODE_ID = 1;
@@ -76,6 +76,10 @@ const seedData = async () => {
         { id: 107, code_id: HL7_SUD_CODE_ID, group_id: HL7_R_CODE_ID }
       ]);
 
+      await tx.insert(code_system_aliases).values([
+        { system_id: 1, alias: ""},
+      ]);
+
       await tx.insert(rule_metadata).values([
         { rule_id: 107, metadata_id: 1},
         { rule_id: 107, metadata_id: 2}
@@ -104,6 +108,9 @@ const tearDownDB = async () => {
     ${OPIOID_CODE_ID}, 
     ${OPIOID_GROUP_ID}, 
     ${HALL_GROUP_ID});`
+  );
+  await db.execute(
+    sql`DELETE FROM code_system_aliases WHERE system_id=1;`
   );
   await pool.end();
 };

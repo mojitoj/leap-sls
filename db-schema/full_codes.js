@@ -9,7 +9,8 @@ const full_codes = pgView("full_codes").as((qb) =>
     .select({
       code_id: codes.id,
       code: codes.code,
-      system: code_system_aliases.alias
+      system: code_system_aliases.alias,
+      display: codes.display
     })
     .from(codes)
     .innerJoin(code_systems, eq(codes.system_id, code_systems.id))
@@ -17,7 +18,6 @@ const full_codes = pgView("full_codes").as((qb) =>
       code_system_aliases,
       eq(code_system_aliases.system_id, code_systems.id)
     )
-    .where(eq(codes.type, "code"))
 );
 
 module.exports = { full_codes };
