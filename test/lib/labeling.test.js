@@ -6,25 +6,11 @@ const NON_SENSITIVE_OBSERVATION = require("../fixtures/observations/observation-
 
 const BUNDLE = require("../fixtures/empty-bundle.json");
 
-it.only("correctly labels an unlabeled resource", async () => {
+it("correctly labels an unlabeled resource", async () => {
   const labeledObservation = await label(OBSERVATION);
   expect(labeledObservation.meta?.security).toEqual(
     expect.arrayContaining([
       expect.objectContaining({
-        extension: [
-          {
-            url: "http://hl7.org/fhir/uv/security-label-ds4p/StructureDefinition/extension-sec-label-basis",
-            valueCoding: {
-              system: "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-              code: "42CFRPart2",
-              display: "42 CFR Part2"
-            }
-          },
-          {
-            url: "http://hl7.org/fhir/uv/security-label-ds4p/StructureDefinition/extension-sec-label-basis",
-            valueCoding: { code: "ketamine", system: "sample-rule-1" }
-          }
-        ],
         system: "http://terminology.hl7.org/CodeSystem/v3-ActCode",
         code: "SUD",
         display: "substance use disorder information sensitivity"
@@ -38,6 +24,12 @@ it.only("correctly labels an unlabeled resource", async () => {
               code: "42CFRPart2",
               display: "42 CFR Part2"
             }
+          },
+          {
+            url: "http://hl7.org/fhir/uv/security-label-ds4p/StructureDefinition/extension-sec-label-classifier",
+            valueReference: {
+              display: "LEAP+ Security Labeling Service"
+            }
           }
         ],
         system: "http://terminology.hl7.org/CodeSystem/v3-Confidentiality",
@@ -48,7 +40,7 @@ it.only("correctly labels an unlabeled resource", async () => {
   );
 });
 
-it("correctly refrains from labeling a non-sensitiveresource", async () => {
+it("correctly refrains from labeling a non-sensitive resource", async () => {
   const labeledObservation = await label(NON_SENSITIVE_OBSERVATION);
   expect(labeledObservation.meta?.security).toEqual([]);
 });
@@ -65,7 +57,7 @@ it("does not add redundant labels to a resource with existing labels", async () 
   };
 
   const labeledObservation = await label(alreadyLabeledObservation);
-  expect(labeledObservation.meta?.security).toHaveLength(2);
+  expect(labeledObservation.meta?.security).toHaveLength(3);
   expect(labeledObservation.meta?.security).toEqual(
     expect.arrayContaining([
       expect.objectContaining({
@@ -110,11 +102,13 @@ it("correctly labels a bundle of resource", async () => {
   const bundleOfObservations = _.cloneDeep(BUNDLE);
   bundleOfObservations.entry = [
     { fullUrl: "1", resource: OBSERVATION },
-    { fullUrl: "2", resource: OBSERVATION }
+    { fullUrl: "2", resource: OBSERVATION },
+    { fullUrl: "3", resource: NON_SENSITIVE_OBSERVATION }
   ];
   bundleOfObservations.total = 2;
 
   const labeledBundle = await label(bundleOfObservations);
+
   expect(labeledBundle.entry[0].resource.meta?.security).toEqual(
     expect.arrayContaining([
       expect.objectContaining({
