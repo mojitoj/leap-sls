@@ -6,8 +6,8 @@ const NON_SENSITIVE_OBSERVATION = require("../fixtures/observations/observation-
 
 const BUNDLE = require("../fixtures/empty-bundle.json");
 
-it("correctly labels an unlabeled resource", async () => {
-  const labeledObservation = label(OBSERVATION);  
+it.only("correctly labels an unlabeled resource", async () => {
+  const labeledObservation = await label(OBSERVATION);
   expect(labeledObservation.meta?.security).toEqual(
     expect.arrayContaining([
       expect.objectContaining({
@@ -49,7 +49,7 @@ it("correctly labels an unlabeled resource", async () => {
 });
 
 it("correctly refrains from labeling a non-sensitiveresource", async () => {
-  const labeledObservation = label(NON_SENSITIVE_OBSERVATION);
+  const labeledObservation = await label(NON_SENSITIVE_OBSERVATION);
   expect(labeledObservation.meta?.security).toEqual([]);
 });
 
@@ -64,7 +64,7 @@ it("does not add redundant labels to a resource with existing labels", async () 
     ]
   };
 
-  const labeledObservation = label(alreadyLabeledObservation);
+  const labeledObservation = await label(alreadyLabeledObservation);
   expect(labeledObservation.meta?.security).toHaveLength(2);
   expect(labeledObservation.meta?.security).toEqual(
     expect.arrayContaining([
@@ -91,7 +91,7 @@ it("correctly adds labels to a resource with existing labels", async () => {
     ]
   };
 
-  const labeledObservation = label(alreadyLabeledObservation);
+  const labeledObservation = await label(alreadyLabeledObservation);
   expect(labeledObservation.meta?.security).toEqual(
     expect.arrayContaining([
       expect.objectContaining({
@@ -114,7 +114,7 @@ it("correctly labels a bundle of resource", async () => {
   ];
   bundleOfObservations.total = 2;
 
-  const labeledBundle = label(bundleOfObservations);
+  const labeledBundle = await label(bundleOfObservations);
   expect(labeledBundle.entry[0].resource.meta?.security).toEqual(
     expect.arrayContaining([
       expect.objectContaining({
