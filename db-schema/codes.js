@@ -20,14 +20,14 @@ const codes = pgTable(
     display: text("display"),
     type: varchar("type", { length: 255 }).notNull()
   },
-  (table) => {
-    return {
+  (table) => [
+    {
       systemCodeUniqueIdx: uniqueIndex("system_code_unique_idx").on(
         table.system_id,
         table.code
       )
-    };
-  }
+    }
+  ]
 );
 
 module.exports = { codes };

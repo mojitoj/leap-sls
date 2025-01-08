@@ -1,6 +1,6 @@
 {
-  "id": "74a220b3-a2f2-4d19-80a2-b0669d0a02fb",
-  "prevId": "b1d45e34-74ae-4122-b598-d22210319bf4",
+  "id": "3e92aa37-5eb2-4bba-b76c-ae5c4d8bc45a",
+  "prevId": "97067dad-290f-407b-8d9b-bbd216f449cf",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -127,29 +127,7 @@
           "notNull": true
         }
       },
-      "indexes": {
-        "system_code_unique_idx": {
-          "name": "system_code_unique_idx",
-          "columns": [
-            {
-              "expression": "system_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "code",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": true,
-          "with": {},
-          "method": "btree",
-          "concurrently": false
-        }
-      },
+      "indexes": {},
       "foreignKeys": {
         "codes_system_id_code_systems_id_fk": {
           "name": "codes_system_id_code_systems_id_fk",
@@ -371,7 +349,7 @@
           "notNull": false
         }
       },
-      "definition": "select \"codes\".\"id\", \"codes\".\"code\", \"code_system_aliases\".\"alias\", \"codes\".\"display\" from \"codes\" inner join \"code_systems\" on \"codes\".\"system_id\" = \"code_systems\".\"id\" inner join \"code_system_aliases\" on \"code_system_aliases\".\"system_id\" = \"code_systems\".\"id\"",
+      "definition": "select \"codes\".\"id\", \"codes\".\"code\", \"code_system_aliases\".\"alias\", \"codes\".\"display\", CONCAT (\"code_system_aliases\".\"alias\", '#', \"codes\".\"code\") as \"system_code\" from \"codes\" inner join \"code_systems\" on \"codes\".\"system_id\" = \"code_systems\".\"id\" inner join \"code_system_aliases\" on \"code_system_aliases\".\"system_id\" = \"code_systems\".\"id\"",
       "materialized": false,
       "isExisting": false
     }

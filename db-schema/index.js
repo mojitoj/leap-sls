@@ -4,6 +4,7 @@ const { code_system_aliases } = require("./code_system_aliases.js");
 const { rules } = require("./rules.js");
 const { metadata } = require("./metadata.js");
 const { rule_metadata } = require("./rule_metadata.js");
+const { full_codes } = require("./full_codes.js");
 
 module.exports = {
   code_systems,
@@ -11,5 +12,6 @@ module.exports = {
   codes,
   rules,
   metadata,
-  rule_metadata
+  rule_metadata,
+  full_codes
 };

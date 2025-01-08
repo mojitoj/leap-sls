@@ -1,4 +1,4 @@
-const { eq } = require("drizzle-orm");
+const { eq, sql } = require("drizzle-orm");
 const { pgView } = require("drizzle-orm/pg-core");
 const { codes } = require("./codes");
 const { code_systems } = require("./code_systems");
@@ -10,7 +10,8 @@ const full_codes = pgView("full_codes").as((qb) =>
       code_id: codes.id,
       code: codes.code,
       system: code_system_aliases.alias,
-      display: codes.display
+      display: codes.display,
+      system_code: sql`CONCAT (${code_system_aliases.alias}, '#', ${codes.code})`.as('system_code')
     })
     .from(codes)
     .innerJoin(code_systems, eq(codes.system_id, code_systems.id))
