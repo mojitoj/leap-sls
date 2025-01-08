@@ -46,7 +46,6 @@
     "drizzle-orm": "^0.38.3",
     "express": "^4.21.2",
     "jsonpath-plus": "^10.2.0",
-    "lodash": "^4.17.21",
     "morgan": "^1.10.0",
     "pg": "^8.13.1",
     "superagent": "^10.1.1",

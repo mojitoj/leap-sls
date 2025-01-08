@@ -1,4 +1,4 @@
-const _ = require("lodash");
+const { cloneDeep } = require("../../lib/helpers");
 const { label } = require("../../lib/labeling/labeler");
 
 const OBSERVATION = require("../fixtures/observations/observations-ketamine.json");
@@ -46,7 +46,7 @@ it("correctly refrains from labeling a non-sensitive resource", async () => {
 });
 
 it("does not add redundant labels to a resource with existing labels", async () => {
-  const alreadyLabeledObservation = _.cloneDeep(OBSERVATION);
+  const alreadyLabeledObservation = cloneDeep(OBSERVATION);
   alreadyLabeledObservation.meta = {
     security: [
       {
@@ -73,7 +73,7 @@ it("does not add redundant labels to a resource with existing labels", async () 
 });
 
 it("correctly adds labels to a resource with existing labels", async () => {
-  const alreadyLabeledObservation = _.cloneDeep(OBSERVATION);
+  const alreadyLabeledObservation = cloneDeep(OBSERVATION);
   alreadyLabeledObservation.meta = {
     security: [
       {
@@ -99,7 +99,7 @@ it("correctly adds labels to a resource with existing labels", async () => {
 });
 
 it("correctly labels a bundle of resource", async () => {
-  const bundleOfObservations = _.cloneDeep(BUNDLE);
+  const bundleOfObservations = cloneDeep(BUNDLE);
   bundleOfObservations.entry = [
     { fullUrl: "1", resource: OBSERVATION },
     { fullUrl: "2", resource: OBSERVATION },

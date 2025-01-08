@@ -1,4 +1,4 @@
-const _ = require("lodash");
+const { cloneDeep } = require("../../lib/helpers");
 const request = require("supertest");
 const { app } = require("../../app");
 
@@ -6,10 +6,10 @@ const BUNDLE = require("../fixtures/empty-bundle.json");
 const OBSERVATION = require("../fixtures/observations/observations-ketamine.json");
 const NON_SENSITIVE_OBSERVATION = require("../fixtures/observations/observation-bacteria.json");
 
-const SLS_ENDPOINT="/fhir/sls";
+const SLS_ENDPOINT = "/fhir/sls";
 
 it("should return 200 and a labeled bundle", async () => {
-  const bundleOfObservations = _.cloneDeep(BUNDLE);
+  const bundleOfObservations = cloneDeep(BUNDLE);
   bundleOfObservations.entry = [
     { fullUrl: "1", resource: OBSERVATION },
     { fullUrl: "2", resource: NON_SENSITIVE_OBSERVATION }
