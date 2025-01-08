@@ -11,6 +11,7 @@ function error(err, req, res, next) {
 }
 
 function logIfAppError(err) {
+  console.log(err);
   if (!err.httpCode || err.httpCode >= 500) {
     logger.warn(err);
   }
