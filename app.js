@@ -18,7 +18,8 @@ app.use(express.json({ type: "application/json" }));
 //routes
 app.get("/ping", ping);
 
-app.post("/fhir/sls", SLS.post);
+app.post("/fhir/sls/label", SLS.post);
+app.post("/fhir/sls/transaction", SLS.post);
 
 app.use(error);
 

@@ -6,7 +6,7 @@ const BUNDLE = require("../fixtures/empty-bundle.json");
 const OBSERVATION = require("../fixtures/observations/observations-ketamine.json");
 const NON_SENSITIVE_OBSERVATION = require("../fixtures/observations/observation-bacteria.json");
 
-const SLS_ENDPOINT = "/fhir/sls";
+const SLS_ENDPOINT = "/fhir/sls/label";
 
 it("should return 200 and a labeled bundle", async () => {
   const bundleOfObservations = cloneDeep(BUNDLE);
