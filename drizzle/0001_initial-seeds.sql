@@ -16,7 +16,11 @@ INSERT INTO code_system_aliases VALUES
     ('http://www.nlm.nih.gov/research/umls/rxnorm', 4),
     ('2.16.840.1.113883.6.88', 4),
     ('http://terminology.hl7.org/CodeSystem/v3-ActCode', 5),
-    ('http://terminology.hl7.org/CodeSystem/v3-Confidentiality', 6)
+    ('http://terminology.hl7.org/CodeSystem/v3-Confidentiality', 6),
+    ('http://loinc.org', 7),
+    ('2.16.840.1.113883.6.1', 7),
+    ('http://www.ama-assn.org/go/cpt', 8),
+    ('urn:oid:2.16.840.1.113883.6.12', 8)
 ON CONFLICT ("alias") DO NOTHING;
 
 INSERT INTO codes VALUES 
