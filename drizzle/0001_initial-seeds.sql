@@ -4,7 +4,9 @@ INSERT INTO code_systems VALUES
     (3, 'ICD10'),
     (4, 'RXNORM'),
     (5, 'HL7_ACT-CODE'),
-    (6, 'HL7_CONFIDENTIALITY')
+    (6, 'HL7_CONFIDENTIALITY'),
+    (7, 'LOINC'),
+    (8, 'CPT')
 ON CONFLICT ("id") DO NOTHING;
 
 INSERT INTO code_system_aliases VALUES 
