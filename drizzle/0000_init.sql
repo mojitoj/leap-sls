@@ -1,14 +1,12 @@
-CREATE TABLE "code_system_aliases" (
-	"system_id" integer NOT NULL,
-	"alias" varchar(512) NOT NULL,
-	CONSTRAINT "code_system_aliases_system_id_alias_pk" PRIMARY KEY("system_id","alias"),
-	CONSTRAINT "code_system_aliases_alias_unique" UNIQUE("alias")
-);
---> statement-breakpoint
 CREATE TABLE "code_systems" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"display_name" varchar(64) NOT NULL,
 	CONSTRAINT "code_systems_display_name_unique" UNIQUE("display_name")
+);
+--> statement-breakpoint
+CREATE TABLE "code_system_aliases" (
+	"alias" varchar(512) PRIMARY KEY NOT NULL,
+	"system_id" integer NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "codes" (

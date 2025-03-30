@@ -1,64 +1,9 @@
 {
-  "id": "3e92aa37-5eb2-4bba-b76c-ae5c4d8bc45a",
-  "prevId": "97067dad-290f-407b-8d9b-bbd216f449cf",
+  "id": "002e478c-d1ad-47f7-9767-59c26eb3f422",
+  "prevId": "3d4ba367-bf95-472d-adb5-0e12a5395346",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.code_system_aliases": {
-      "name": "code_system_aliases",
-      "schema": "",
-      "columns": {
-        "system_id": {
-          "name": "system_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "alias": {
-          "name": "alias",
-          "type": "varchar(512)",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "code_system_aliases_system_id_code_systems_id_fk": {
-          "name": "code_system_aliases_system_id_code_systems_id_fk",
-          "tableFrom": "code_system_aliases",
-          "columnsFrom": [
-            "system_id"
-          ],
-          "tableTo": "code_systems",
-          "columnsTo": [
-            "id"
-          ],
-          "onUpdate": "no action",
-          "onDelete": "no action"
-        }
-      },
-      "compositePrimaryKeys": {
-        "code_system_aliases_system_id_alias_pk": {
-          "name": "code_system_aliases_system_id_alias_pk",
-          "columns": [
-            "system_id",
-            "alias"
-          ]
-        }
-      },
-      "uniqueConstraints": {
-        "code_system_aliases_alias_unique": {
-          "name": "code_system_aliases_alias_unique",
-          "columns": [
-            "alias"
-          ],
-          "nullsNotDistinct": false
-        }
-      },
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
     "public.code_systems": {
       "name": "code_systems",
       "schema": "",
@@ -88,6 +33,45 @@
           "nullsNotDistinct": false
         }
       },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.code_system_aliases": {
+      "name": "code_system_aliases",
+      "schema": "",
+      "columns": {
+        "alias": {
+          "name": "alias",
+          "type": "varchar(512)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "system_id": {
+          "name": "system_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "code_system_aliases_system_id_code_systems_id_fk": {
+          "name": "code_system_aliases_system_id_code_systems_id_fk",
+          "tableFrom": "code_system_aliases",
+          "columnsFrom": [
+            "system_id"
+          ],
+          "tableTo": "code_systems",
+          "columnsTo": [
+            "id"
+          ],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
@@ -339,7 +323,7 @@
         "alias": {
           "name": "alias",
           "type": "varchar(512)",
-          "primaryKey": false,
+          "primaryKey": true,
           "notNull": true
         },
         "display": {
