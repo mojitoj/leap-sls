@@ -88,10 +88,6 @@ const seedData = async () => {
         { id: 107, code_id: HL7_SUD_CODE_ID, group_id: HL7_R_CODE_ID } //all SUD codes are Restricted
       ]);
 
-      await tx
-        .insert(code_system_aliases)
-        .values([{ system_id: 1, alias: "" }]);
-
       await tx.insert(rule_metadata).values([
         { rule_id: 107, metadata_id: WHY_42CFRPart2_METADATA_ID },
         { rule_id: 107, metadata_id: WHO_SLS_NAME_METADATA_ID }

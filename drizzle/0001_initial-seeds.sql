@@ -10,6 +10,7 @@ INSERT INTO code_systems VALUES
 ON CONFLICT ("id") DO NOTHING;
 
 INSERT INTO code_system_aliases VALUES 
+    ('local_code_group', 1),
     ('http://snomed.info/sct', 2),
     ('2.16.840.1.113883.6.96', 2),
     ('http://hl7.org/fhir/sid/icd-10', 3),
