@@ -6,10 +6,16 @@ const NON_SENSITIVE_OBSERVATION = require("../fixtures/observations/observation-
 
 const BUNDLE = require("../fixtures/empty-bundle.json");
 
-it("correctly labels an unlabeled resource", async () => {
+it.only("correctly labels an unlabeled resource", async () => {
   const labeledObservation = await label(OBSERVATION);
+  console.log(labeledObservation.meta.security);
   expect(labeledObservation.meta?.security).toEqual(
     expect.arrayContaining([
+      expect.objectContaining({
+        system: "local_code_group",
+        code: "hallucinogen",
+        display: "hallucinogen substance use"
+      }),
       expect.objectContaining({
         system: "http://terminology.hl7.org/CodeSystem/v3-ActCode",
         code: "SUD",
