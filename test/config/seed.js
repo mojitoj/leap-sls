@@ -2,8 +2,7 @@ const { db, pool } = require("../../lib/db/db");
 const {
   codes,
   rules,
-  rule_metadata,
-  code_system_aliases
+  rule_metadata
 } = require("../../db-schema");
 const { sql } = require("drizzle-orm");
 
@@ -17,9 +16,9 @@ const OPIOID_CODE_ID = 104;
 const HALL_GROUP_ID = 105;
 const OPIOID_GROUP_ID = 106;
 
+const LOCAL_SYSTEM_ID = 1;
 const SNOMED_SYSTEM_ID = 2;
 const ICD10_SYSTEM_ID = 3;
-const LOCAL_SYSTEM_ID = 1;
 
 const WHY_42CFRPart2_METADATA_ID = 1;
 const WHO_SLS_NAME_METADATA_ID = 2;
@@ -114,7 +113,6 @@ const tearDownDB = async () => {
     ${OPIOID_GROUP_ID}, 
     ${HALL_GROUP_ID});`
   );
-  await db.execute(sql`DELETE FROM code_system_aliases WHERE system_id=1;`);
   await pool.end();
 };
 
