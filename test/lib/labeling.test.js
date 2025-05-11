@@ -8,7 +8,7 @@ const BUNDLE = require("../fixtures/empty-bundle.json");
 
 it("correctly labels an unlabeled resource", async () => {
   const labeledObservation = await label(OBSERVATION);
-  console.log(labeledObservation.meta.security);
+
   expect(labeledObservation.meta?.security).toEqual(
     expect.arrayContaining([
       expect.objectContaining({
