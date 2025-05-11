@@ -8,13 +8,23 @@ const BUNDLE = require("../fixtures/empty-bundle.json");
 
 it("correctly labels an unlabeled resource", async () => {
   const labeledObservation = await label(OBSERVATION);
-
+  
   expect(labeledObservation.meta?.security).toEqual(
     expect.arrayContaining([
       expect.objectContaining({
         system: "local_code_group",
         code: "hallucinogen",
         display: "hallucinogen substance use"
+      }),
+      expect.objectContaining({
+        system: "local_code_group",
+        code: "bh_substances",
+        display: "behavioural health related substances"
+      }),
+      expect.objectContaining({
+        system: "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+        code: "BH",
+        display: "behavioral health information sensitivity"
       }),
       expect.objectContaining({
         system: "http://terminology.hl7.org/CodeSystem/v3-ActCode",
@@ -63,16 +73,49 @@ it("does not add redundant labels to a resource with existing labels", async () 
   };
 
   const labeledObservation = await label(alreadyLabeledObservation);
-  expect(labeledObservation.meta?.security).toHaveLength(3);
+  expect(labeledObservation.meta?.security).toHaveLength(5);
   expect(labeledObservation.meta?.security).toEqual(
     expect.arrayContaining([
       expect.objectContaining({
-        system: "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-        code: "SUD"
+        system: "local_code_group",
+        code: "hallucinogen",
+        display: "hallucinogen substance use"
       }),
       expect.objectContaining({
+        system: "local_code_group",
+        code: "bh_substances",
+        display: "behavioural health related substances"
+      }),
+      expect.objectContaining({
+        system: "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+        code: "BH",
+        display: "behavioral health information sensitivity"
+      }),
+      expect.objectContaining({
+        system: "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+        code: "SUD",
+        display: "substance use disorder information sensitivity"
+      }),
+      expect.objectContaining({
+        extension: [
+          {
+            url: "http://hl7.org/fhir/uv/security-label-ds4p/StructureDefinition/extension-sec-label-basis",
+            valueCoding: {
+              system: "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              code: "42CFRPart2",
+              display: "42 CFR Part2"
+            }
+          },
+          {
+            url: "http://hl7.org/fhir/uv/security-label-ds4p/StructureDefinition/extension-sec-label-classifier",
+            valueReference: {
+              display: "LEAP+ Security Labeling Service"
+            }
+          }
+        ],
         system: "http://terminology.hl7.org/CodeSystem/v3-Confidentiality",
-        code: "R"
+        code: "R",
+        display: "restricted"
       })
     ])
   );

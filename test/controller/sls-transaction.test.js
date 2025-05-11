@@ -28,6 +28,8 @@ it("should return 200 and a labeled bundle", async () => {
   expect(transaction.entry[0].fullUrl).toEqual(
     `Observation/${OBSERVATION.id}/$meta-add`
   );
+  const labels = transaction.entry[0].resource.parameter[0].valueMeta.security;
+  expect(labels.length).toEqual(5);
   expect(
     transaction.entry[0].resource.parameter[0].valueMeta.security
   ).toMatchObject(

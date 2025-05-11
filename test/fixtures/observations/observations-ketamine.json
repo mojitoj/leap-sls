@@ -8,6 +8,11 @@
         "system": "http://snomed.info/sct",
         "code": "724713006",
         "display": "Harmful use of ketamine (disorder)"
+      },
+      {
+        "system": "http://hl7.org/fhir/sid/icd-10",
+        "code": "F16.20",
+        "display": "Hallucinogen abuse, uncomplicated"
       }
     ]
   },
