@@ -1,3 +1,7 @@
+INSERT INTO code_system_aliases VALUES 
+    ('local_code_group', 1)
+ON CONFLICT ("alias") DO NOTHING;
+
 INSERT INTO codes VALUES 
   (6, 5, 'HIV', 'HIV/AIDS information sensitivity', 'sensitivity'),
   (7, 5, 'SDV', 'Sexual assault, abuse, or domestic violence information sensitivity', 'sensitivity'),  
