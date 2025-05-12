@@ -8,7 +8,7 @@ const NON_SENSITIVE_OBSERVATION = require("../fixtures/observations/observation-
 
 const SLS_ENDPOINT = "/fhir/sls/transaction";
 
-it.only("should return 200 and a labeling transaction for the bundle", async () => {
+it("should return 200 and a labeling transaction for the bundle", async () => {
   const bundleOfObservations = cloneDeep(BUNDLE);
   bundleOfObservations.entry = [
     { fullUrl: "1", resource: OBSERVATION },
