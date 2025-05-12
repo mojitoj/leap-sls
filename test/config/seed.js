@@ -1,9 +1,5 @@
 const { db, pool } = require("../../lib/db/db");
-const {
-  codes,
-  rules,
-  rule_metadata
-} = require("../../db-schema");
+const { codes, rules, rule_metadata, metadata } = require("../../db-schema");
 const { sql } = require("drizzle-orm");
 
 const HL7_SUD_CODE_ID = 1;
@@ -97,13 +93,24 @@ const seedData = async () => {
         { id: 107, code_id: HL7_SUD_CODE_ID, group_id: HL7_R_CODE_ID }, //all SUD codes are Restricted
         { id: 108, code_id: HALL_GROUP_ID, group_id: BH_GROUP_ID },
         { id: 109, code_id: BH_GROUP_ID, group_id: HL7_BH_CODE_ID },
-        { id: 110, code_id: HL7_BH_CODE_ID, group_id: HL7_R_CODE_ID } 
-
+        { id: 110, code_id: HL7_BH_CODE_ID, group_id: HL7_R_CODE_ID }
       ]);
+
+      await tx
+        .insert(metadata)
+        .values([
+          {
+            id: 100,
+            type: "why",
+            display:
+              "AB 133 & AB 352 (2021–2023) – Behavioral Health Data Exchange Laws"
+          }
+        ]);
 
       await tx.insert(rule_metadata).values([
         { rule_id: 107, metadata_id: WHY_42CFRPart2_METADATA_ID },
-        { rule_id: 107, metadata_id: WHO_SLS_NAME_METADATA_ID }
+        { rule_id: 107, metadata_id: WHO_SLS_NAME_METADATA_ID },
+        { rule_id: 108, metadata_id: 100 }
       ]);
     });
 
@@ -117,6 +124,9 @@ const tearDownDB = async () => {
   await db.execute(sql`TRUNCATE rule_metadata;`);
   await db.execute(
     sql`DELETE FROM rules WHERE id IN (101, 102, 103, 104, 105, 106, 107, 108, 109, 110);`
+  );
+  await db.execute(
+    sql`DELETE FROM metadata WHERE id IN (100);`
   );
   await db.execute(
     sql`DELETE FROM codes WHERE id IN 

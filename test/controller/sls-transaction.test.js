@@ -8,7 +8,7 @@ const NON_SENSITIVE_OBSERVATION = require("../fixtures/observations/observation-
 
 const SLS_ENDPOINT = "/fhir/sls/transaction";
 
-it("should return 200 and a labeled bundle", async () => {
+it.only("should return 200 and a labeling transaction for the bundle", async () => {
   const bundleOfObservations = cloneDeep(BUNDLE);
   bundleOfObservations.entry = [
     { fullUrl: "1", resource: OBSERVATION },
@@ -23,6 +23,7 @@ it("should return 200 and a labeled bundle", async () => {
 
   expect(res.status).toEqual(200);
   const transaction = res.body;
+
   expect(transaction.type).toEqual("transaction");
   expect(transaction.entry.length).toEqual(1);
   expect(transaction.entry[0].fullUrl).toEqual(
@@ -46,7 +47,7 @@ it("should return 200 and a labeled bundle", async () => {
   );
 });
 
-it("should return 200 and a labeled resource", async () => {
+it("should return 200 and and a labeling transaction for the resource", async () => {
   const res = await request(app)
     .post(SLS_ENDPOINT)
     .set("Accept", "application/json")

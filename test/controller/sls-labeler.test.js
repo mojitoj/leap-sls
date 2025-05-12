@@ -23,7 +23,8 @@ it("should return 200 and a labeled bundle", async () => {
 
   expect(res.status).toEqual(200);
 
-  expect(res.body.entry[0].resource.meta?.security).toMatchObject(
+  const labels = res.body.entry[0].resource.meta?.security;
+  expect(labels).toMatchObject(
     expect.arrayContaining([
       expect.objectContaining({
         system: "http://terminology.hl7.org/CodeSystem/v3-ActCode",
