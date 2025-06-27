@@ -24,6 +24,7 @@ it("should return 200 and a labeled bundle", async () => {
   expect(res.status).toEqual(200);
 
   const labels = res.body.entry[0].resource.meta?.security;
+
   expect(labels).toMatchObject(
     expect.arrayContaining([
       expect.objectContaining({
@@ -32,7 +33,23 @@ it("should return 200 and a labeled bundle", async () => {
       }),
       expect.objectContaining({
         system: "http://terminology.hl7.org/CodeSystem/v3-Confidentiality",
-        code: "R"
+        code: "R",
+        extension: expect.arrayContaining([
+          expect.objectContaining({
+            url: "http://hl7.org/fhir/uv/security-label-ds4p/StructureDefinition/extension-sec-label-basis",
+            valueCoding: expect.objectContaining({
+              code: "42CFRPart2",
+              system: "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              display: "42 CFR Part2"
+            })
+          }),
+          expect.objectContaining({
+            url: "http://hl7.org/fhir/uv/security-label-ds4p/StructureDefinition/extension-sec-label-classifier",
+            valueReference: expect.objectContaining({
+              display: "LEAP+ Security Labeling Service"
+            })
+          })
+        ])
       })
     ])
   );
