@@ -8,6 +8,15 @@ const NON_SENSITIVE_OBSERVATION = require("../fixtures/observations/observation-
 
 const SLS_ENDPOINT = "/fhir/sls/transaction";
 
+it("should return 400 on bad request", async () => {
+  const res = await request(app)
+    .post(SLS_ENDPOINT)
+    .set("Accept", "application/json")
+    .send({});
+
+  expect(res.status).toEqual(400);
+});
+
 it("should return 200 and a labeling transaction for the bundle", async () => {
   const bundleOfObservations = cloneDeep(BUNDLE);
   bundleOfObservations.entry = [
